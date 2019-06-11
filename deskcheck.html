@@ -1,0 +1,213 @@
+<!DOCTYPE html>
+<html>
+<!-- 
+https://www.allrecipes.com/recipe/13978/lentil-soup/?internalSource=hub%20recipe&referringId=94&referringContentType=Recipe%20Hub
+https://www.allrecipes.com/recipe/228224/chicken-stew-with-dumplings/?internalSource=similar_recipe_banner&referringId=11843&referringContentType=Recipe&clickId=simslot_4
+https://www.allrecipes.com/recipe/25333/vegan-black-bean-soup/?internalSource=recipe%20hub&referringId=94&referringContentType=Recipe%20Hub&clickId=cardslot%2082
+-->
+	<head>
+		<script src=".\dc.js"></script>
+		<!--script type="text/javascript">
+			function myFunction() {
+				getNum = Module.cwrap('getNum', 'number', []);
+				document.getElementById("demo").innerHTML = getNum();
+			}
+			function myFunction2() {
+				writeFile = Module.cwrap('writeFile', 'number', []);
+				document.getElementById("demo").innerHTML = writeFile();
+			}
+		</script-->
+		<style>
+			<!-- Can use this to preserve whitespace
+			-->
+			li { white-space: pre; }
+		</style>
+
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<style>
+.collapsible {
+  background-color: #777;
+  color: white;
+  cursor: pointer;
+  padding: 18px;
+  width: 100%;
+  border: none;
+  text-align: left;
+  outline: none;
+  font-size: 15px;
+}
+
+.active, .collapsible:hover {
+  background-color: #555;
+}
+
+.collapsible:after {
+  content: '\002B';
+  color: white;
+  font-weight: bold;
+  float: right;
+  margin-left: 5px;
+}
+
+.active:after {
+  content: "\2212";
+}
+
+.content {
+  padding: 0 18px;
+  max-height: 0;
+  overflow: hidden;
+  transition: max-height 0.2s ease-out;
+  background-color: #f1f1f1;
+}
+</style>
+
+<!-- https://stackoverflow.com/questions/52973660/how-to-highlight-selected-li-item-only -->
+<script>
+function switchChannel(el){
+  // find all the elements in your channel list and loop over them
+  Array.prototype.slice.call(document.querySelectorAll('ul[data-tag="channelList"] li')).forEach(function(element){
+    // remove the selected class
+    element.classList.remove('selected');
+  });
+  // add the selected class to the element that was clicked
+  el.classList.add('selected');
+}
+</script>
+<style>
+.selected{
+    color:blue;
+    border:4px solid blue;
+	white-space: pre;
+}
+.notselected{
+    color:black;
+    border:0px solid white;
+	white-space: pre;
+}
+</style>
+	</head>
+	<body>
+		<!-- return type can be null, string, array, or number
+		     parameter type can be string or number (if passing array, then need to pass pointer as a number)
+			 
+			 Note that string is const char * (not C++ string)
+		-->
+		<script>
+			function callPassString() {
+				var tmpString = "abc_xyz";
+				kp_passString = Module.cwrap('kp_passString', null, ['string']);
+				kp_passString(tmpString);
+			}
+		</script>
+		<button onClick="callPassString();">Call Pass String</button>
+		
+<!-- https://forums.asp.net/t/2119943.aspx?convert+txt+file+to+javascript+array -->
+		<div>
+			Select a text file: 
+			<input type="file" id="fileInput">
+		</div>
+		<pre id="displayFile"></pre>
+
+		<script>
+			function collapseClick() {
+				this.classList.toggle("active");
+				var content = this.nextElementSibling;
+				if (content.style.maxHeight){
+				  content.style.maxHeight = null;
+				} else {
+				  content.style.maxHeight = content.scrollHeight + "px";
+				} 
+			}
+		
+			readProgramData = Module.cwrap('readProgramData', null, ['string','number']);
+			createProgramHtml = Module.cwrap('createProgramHtml', 'string', ['number']);
+			checkAnswer = Module.cwrap('checkAnswer', 'number', ['number','string']);
+			updateQuestionHtml = Module.cwrap('updateQuestionHtml', 'string', ['number']);
+			getCurrentLine = Module.cwrap('getCurrentProgHeader', 'string', ['number']);
+			getCurrentLineName = Module.cwrap('getCurrentLineName', 'string', ['number']);
+			getCurrentSymTab = Module.cwrap('getCurrentSymTab', 'string', ['number']);
+			getCurrentOutput = Module.cwrap('getCurrentOutput', 'string', ['number']);
+			getCurrentPreOutput = Module.cwrap('getCurrentPreOutput', 'string', ['number']);
+			getNumPrograms = Module.cwrap('getNumPrograms', 'number', []);
+			getCurrentProgDesc = Module.cwrap('getCurrentProgDesc', 'string', ['number']);
+			
+			var fileInput = document.getElementById('fileInput');
+			fileInput.addEventListener('change', function(e) {
+				var file = fileInput.files[0];
+				var reader = new FileReader();
+
+				reader.onload = function(e) {
+					//Create a Int8Array view referring to the buffer 
+					readProgramData(reader.result, reader.result.length);
+//console.log(createProgramHtml(0));
+					document.getElementById('Programs').innerHTML = createProgramHtml(0);
+var coll = document.getElementById('Programs').getElementsByClassName("collapsible");
+var i;
+
+for (i = 0; i < coll.length; i++) {
+  coll[i].addEventListener("click", function() {
+    this.classList.toggle("active");
+    var content = this.nextElementSibling;
+    if (content.style.maxHeight){
+      content.style.maxHeight = null;
+    } else {
+      content.style.maxHeight = (content.scrollHeight * 1.10) + "px";
+    } 
+  });
+}
+
+var numProg = getNumPrograms();
+console.log("KP - num programs is " + numProg);
+for (i = 0; i < numProg; i++)
+{
+console.log("KP - setting up  " + i);
+document.getElementById('Prog'+i+'HeadBtn').innerHTML = getCurrentProgDesc(i);
+document.getElementById('Prog'+i+'Quest').innerHTML = updateQuestionHtml(i);
+var ul = document.getElementById('Prog'+i+'Content');
+var items = ul.getElementsByTagName("li");
+for (var j = 0; j < items.length; j++) {
+  items[j].className = "notselected";
+}
+document.getElementById(getCurrentLineName(i)).className = "selected";
+}
+					//document.getElementById(getCurrentLine(0)).classList.add('selected');	
+				};
+				reader.readAsBinaryString(file); //readAsText(file);	
+			});
+			
+
+			function checkProgAnswer(progNum, theAnswer) {
+				var oldLine = document.getElementById(getCurrentLineName(progNum));
+				var n = checkAnswer(progNum, theAnswer);
+				if (n == -1) {				
+					document.getElementById('Prog'+progNum+'Quest').innerHTML = updateQuestionHtml(progNum);
+					oldLine.className = "notselected";
+					document.getElementById(getCurrentLineName(progNum)).className = "selected";
+					document.getElementById('Prog'+progNum+'Ans').value = "";
+					document.getElementById('Prog'+progNum+'HeadBtn').innerHTML = getCurrentProgDesc(progNum);
+console.log("Correct: " + getCurrentOutput(progNum) + getCurrentPreOutput(progNum));
+					document.getElementById('Prog'+progNum+'SymTab').innerHTML = getCurrentSymTab(progNum);
+					document.getElementById('Prog'+progNum+'Output').innerHTML = document.getElementById('Prog'+progNum+'Output').innerHTML + 
+						getCurrentOutput(progNum) + getCurrentPreOutput(progNum);
+document.getElementById('Prog'+progNum+'Content').style.maxHeight = (document.getElementById('Prog'+progNum+'Content').scrollHeight * 1.10) + "px";
+				} else if (n == 0) {
+					document.getElementById('Prog'+progNum+'Quest').innerHTML = "Sorry, exhausted attempts, Click Next";
+					document.getElementById('Prog'+progNum+'Ans').value = "";
+					document.getElementById('Prog'+progNum+'HeadBtn').innerHTML = getCurrentProgDesc(progNum);
+console.log("Wrong: " + getCurrentOutput(progNum) + getCurrentPreOutput(progNum));
+					//document.getElementById('Prog'+progNum+'Output').innerHTML = //document.getElementById('Prog'+progNum+'Output').innerHTML + 
+					//	getCurrentOutput(progNum) + getCurrentPreOutput(progNum);
+				}
+			}
+
+		</script>
+
+<!--<button class="collapsible">All Programs</button>
+<div class="content">-->
+		<div id="Programs">
+		</div>
+<!--</div>-->
+
+	</body>
+</html>
