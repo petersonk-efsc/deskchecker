@@ -175,6 +175,30 @@
 		</script>
 	</head>
 	<body onload="setupPage()">
+		<div>
+			<p id='ftext'>...</p>
+<p id='foo'>1</p>
+<p id='foo2'>2</p>
+<p id='foo3'>3</p>
+<p id='foo4'>4</p>
+<p id='foo5'>5</p>
+<p id='foo6'>6</p>
+<p id='foo7'>7</p>
+<p id='foo8'>8</p>
+<p id='foo9'>9</p> <!-- 9 is 0 when run dummy.html, 1 when placed in an iframe in dummy2.html and [0] is null -->
+<button onclick="document.body.style.backgroundColor='red'">red</button>
+<button onclick="document.body.style.backgroundColor='blue'">blue</button>
+<button onclick="document.getElementById('foo').innerHTML = window.location.href;">1 window.location.href</button>
+<button onclick="document.getElementById('foo2').innerHTML = parent.text();">2 parent green</button>
+<button onclick="document.getElementById('foo3').innerHTML = document.referrer.toString();">3 document.referrer</button>
+<button onclick="document.getElementById('foo4').innerHTML = document.location.href.toString();">4 document.location.href</button>
+<button onclick="document.getElementById('foo5').innerHTML = window.parent.toString();">5 window.parent</button>
+<button onclick="document.getElementById('foo6').innerHTML = window.parent.location.href.toString();">6 window.parent.location.href</button>
+<button onclick="document.getElementById('foo7').innerHTML = parent.window.location.href.toString();">7 parent.window.location.href</button>
+<button onclick="document.getElementById('foo8').innerHTML = window.parent.document.getElementById('kid').innerHTML">8 window.parent.document.getElementById('kid').innerHTML</button>
+<button onclick="document.getElementById('foo9').innerHTML = document.location.ancestorOrigins.length">9 document.location.ancestorOrigins[0]</button>
+
+		</div>
 		<!-- https://forums.asp.net/t/2119943.aspx?convert+txt+file+to+javascript+array -->
 		<div>
 			DeskChecker File: 
