@@ -69,7 +69,7 @@ function setupPage() {
 
 	var modFilenameTmp = atob("bmR0YWt0SGFgL0twcXNdZGIvbFBoc09lQnVYZERvTl9KQ3doajBVMWEuWWRyY2ht");
 	const urlParams = new URLSearchParams(window.location.search);
-	if (urlParams.has('m')) {
+	if (urlParams.has('mod')) {
 		modFilenameTmp = atob(urlParams.get('mod'));
 	}
 	var newTxt = "";
