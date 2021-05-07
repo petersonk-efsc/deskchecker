@@ -257,6 +257,15 @@ function updateGrade(progNum, addCorr, addAns) {
 		+ " (" + modProgress[progNum].totalCorr + " / " + modProgress[progNum].totalQuest + " = "
 		+ (modProgress[progNum].totalCorr * 100.0 / modProgress[progNum].totalQuest).toFixed(1) + "%)"
 		+ " (Best grade: " + (modProgress[progNum].bestCorr * 100.0 / modProgress[progNum].totalQuest).toFixed(1) + "%)";
+	if (modProgress[progNum].bestCorr > 0) {
+		if (modProgress[progNum].bestCorr== modProgress[progNum].totalQuest) {
+			document.getElementById("btn" + (progNum + 1)).style.backgroundColor = "honeydew";
+			document.getElementById("btn" + (progNum + 1)).style.border = "solid green";
+		} else {
+			document.getElementById("btn" + (progNum + 1)).style.backgroundColor = "lemonchiffon";
+			document.getElementById("btn" + (progNum + 1)).style.border = "solid darkorange";
+		}
+	}
 }
 
 /**************************************************************************/
