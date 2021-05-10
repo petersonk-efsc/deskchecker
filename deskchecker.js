@@ -283,6 +283,7 @@ function moveToNextStep(progNum, oldStep, oldLineNum) {
 	var newLineNum = newStep.getAttribute("lineNum"); 
 	modProgress[progNum].lastHighlight = newLineNum;
 	document.getElementById("prog" + progNum + "_line" + newLineNum).className = "selected";
+	document.getElementById("prog" + progNum + "_line" + newLineNum).scrollIntoView({block: "center"});
 	var quest = "Click Next";
 	if (newStep.hasAttribute("question")) {
 		quest = newStep.getAttribute("question");
@@ -441,13 +442,13 @@ function buildDeskChecker() {
 		dummyText += "<div>Variables:";
 		dummyText += "<ul id=\"Prog" + j + "SymTab\"  style=\"border: solid\"><li> </li></ul></div>";
 		dummyText += "<div>Console:<br/><p id=\"Prog" + j + "Output\"  style=\"border: solid; min-height: 10px;\"></p></div>";
-		dummyText += "<ol>";
+		dummyText += "<div style=\"overflow: scroll; height: 18em;\"><ol>";
 		var codes = programs[j].getElementsByTagName("code")[0].getElementsByTagName("line");
 		for (var i = 0; i < codes.length; i++)
 		{
 			dummyText += "    <li id=\"prog" + j + "_line" + i + "\">" + codes[i].getAttribute("text") + "</li>\n";
 		}
-		dummyText += "</ol>\n";
+		dummyText += "</ol></div>\n";
 		dummyText += "    <div id=\"Prog" + j + "Quest\">The question?</div>\n";
 		dummyText += "    <div id=\"Prog" + j + "Status\">.</div>\n";
 
