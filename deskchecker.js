@@ -442,7 +442,7 @@ function buildDeskChecker() {
 		dummyText += "<div>Variables:";
 		dummyText += "<ul id=\"Prog" + j + "SymTab\"  style=\"border: solid\"><li> </li></ul></div>";
 		dummyText += "<div>Console:<br/><p id=\"Prog" + j + "Output\"  style=\"border: solid; min-height: 10px;\"></p></div>";
-		dummyText += "<div style=\"overflow: scroll; height: 18em;\"><ol>";
+		dummyText += "<div style=\"overflow: scroll; max-height: 18em;\"><ol>";
 		var codes = programs[j].getElementsByTagName("code")[0].getElementsByTagName("line");
 		for (var i = 0; i < codes.length; i++)
 		{
