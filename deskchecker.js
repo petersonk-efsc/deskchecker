@@ -67,7 +67,7 @@ function setupPage() {
 	resultsOutput = "";
 	moduleInput = "";
 
-	var modFilenameTmp = atob("X2R1YUp0X2F0L2VzW2FLbUYvW1NjYUttb3BtbHVlUF9eQ3NocDBrMXouUWRfY3dt");
+	var modFilenameTmp = atob("ZWRjYVB0ZWFyL0FzYGF1bWQvSlNjYWltSnBebFplbl9jMEcxSC5HZFZjeW0=");
 	const urlParams = new URLSearchParams(window.location.search);
 	if (urlParams.has('mod')) {
 		modFilenameTmp = atob(urlParams.get('mod'));
