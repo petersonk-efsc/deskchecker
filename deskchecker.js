@@ -67,7 +67,7 @@ function setupPage() {
 	resultsOutput = "";
 	moduleInput = "";
 
-	var modFilenameTmp = atob("bmR0YWt0SGFgL0twcXNdZGIvbFBoc09lQnVYZERvTl9KQ3doajBVMWEuWWRyY2ht");
+	var modFilenameTmp = atob("X2R1YUp0X2F0L2VzW2FLbUYvW1NjYUttb3BtbHVlUF9eQ3NocDBrMXouUWRfY3dt");
 	const urlParams = new URLSearchParams(window.location.search);
 	if (urlParams.has('mod')) {
 		modFilenameTmp = atob(urlParams.get('mod'));
@@ -272,6 +272,12 @@ function updateGrade(progNum, addCorr, addAns) {
 
 function moveToNextStep(progNum, oldStep, oldLineNum) {
 	document.getElementById("prog" + progNum + "_line" + oldLineNum).className = "notselected";
+	var symbols = oldStep.getElementsByTagName("symbol");
+	var symTmp = "";
+	for (var i = 0; i < symbols.length; i++) {
+		symTmp += "<li>" + symbols[i].getAttribute("varName") + " = " +
+		 symbols[i].getAttribute("varValue") + "</li>";
+	}
 	modProgress[progNum].incorrStep = 0;
 	if (oldStep.hasAttribute("output")) {
 		var tmp = document.getElementById("Prog" + progNum + "Output").innerHTML;
@@ -293,13 +299,8 @@ function moveToNextStep(progNum, oldStep, oldLineNum) {
 		var tmp = document.getElementById("Prog" + progNum + "Output").innerHTML;
 		document.getElementById("Prog" + progNum + "Output").innerHTML = tmp + newStep.getAttribute("preoutput").replace("\\n", "<br/>");
 	}
-	var symbols = newStep.getElementsByTagName("symbol");
-	var tmp = "";
-	for (var i = 0; i < symbols.length; i++) {
-		tmp += "<li>" + symbols[i].getAttribute("varName") + " = " +
-		 symbols[i].getAttribute("varValue") + "</li>";
-	}
-	document.getElementById("Prog" + progNum + "SymTab").innerHTML = tmp;
+
+	document.getElementById("Prog" + progNum + "SymTab").innerHTML = symTmp;
 	document.getElementById('Prog' + progNum + 'Content').style.maxHeight = 
 			(document.getElementById('Prog'+progNum+'Content').scrollHeight * 1.10) + "px";
 	document.getElementById("Prog" + progNum + "Status").innerHTML = ".";
@@ -505,6 +506,16 @@ function moveToFirst(progNum) {
 			consoleTxt += steps[step].getAttribute("output");
 		}
 	}
+	var symTmp = "";
+	if (modProgress[progNum].currStep > 0) {
+		var symbols = moduleInput.getElementsByTagName("program")[progNum].
+			getElementsByTagName("step")[modProgress[progNum].currStep - 1].
+			getElementsByTagName("symbol");
+		for (var i = 0; i < symbols.length; i++) {
+			symTmp += "<li>" + symbols[i].getAttribute("varName") + " = " +
+			 symbols[i].getAttribute("varValue") + "</li>";
+		}
+	}
 	if (steps[modProgress[progNum].currStep].hasAttribute("preoutput")) {
 		consoleTxt += steps[modProgress[progNum].currStep].getAttribute("preoutput");
 	}
@@ -519,13 +530,7 @@ function moveToFirst(progNum) {
 	}
 	document.getElementById("Prog" + progNum + "Quest").innerHTML = quest;
 
-	var symbols = newStep.getElementsByTagName("symbol");
-	var tmp = "";
-	for (var i = 0; i < symbols.length; i++) {
-		tmp += "<li>" + symbols[i].getAttribute("varName") + " = " +
-		 symbols[i].getAttribute("varValue") + "</li>";
-	}
-	document.getElementById("Prog" + progNum + "SymTab").innerHTML = tmp;
+	document.getElementById("Prog" + progNum + "SymTab").innerHTML = symTmp;
 	document.getElementById("Prog" + progNum + "Status").innerHTML = ".";
 	document.getElementById("Prog" + progNum + "Status").style.backgroundColor = "";
 	document.getElementById("Prog" + progNum + "Status").style.border = "solid white";
