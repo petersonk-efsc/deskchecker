@@ -19,9 +19,9 @@ function getcurrTime() {
 	return (currTime.getMonth() + 1) 
 		+ "/" + currTime.getDate() + "/" 
 		+ currTime.getFullYear() + " " 
-		+ currTime.getHours() + ":" 
-		+ currTime.getMinutes() + ":" 
-		+ currTime.getSeconds();
+		+ currTime.getHours().toString().padStart(2, "0") + ":" 
+		+ currTime.getMinutes().toString().padStart(2, "0") + ":" 
+		+ currTime.getSeconds().toString().padStart(2, "0");
 }
 
 
